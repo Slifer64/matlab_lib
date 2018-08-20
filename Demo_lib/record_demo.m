@@ -1,4 +1,4 @@
-function record_demo(N_demos, Ts, N_kernels, dt)
+function Data = record_demo(N_demos, Ts, N_kernels, dt)
 
 if (nargin < 4), dt = Ts; end
 if (nargin < 3), N_kernels = 10; end
@@ -16,8 +16,6 @@ Data = process_data(demo_data, N_kernels, dt);
 
 plot_demos(Data);
 
-save('data/demo_data.mat','Data');
-
 end
 
 % ####################################################################
@@ -28,6 +26,10 @@ function demo_data = record_raw_demo(N_demos)
 demo_data = cell(N_demos,1);
 Time = cell(N_demos,1);
 
+figure;
+xlim([-1.5 1.5]);
+ylim([-1.5 1.5]);
+    
 for n=1:N_demos
     
     %% Draw an abstract shape
@@ -170,7 +172,7 @@ for n=1:N
         end
 
         iters = iters + 1;
-        if (t>=t_end && norm(dy)<0.005) %&& iters>=600)
+        if (t>=t_end && norm(dy)<0.001) %&& iters>=600)
 %             warning('Iteration limit reached. Stopping simulation...\n');
             break;
         end
